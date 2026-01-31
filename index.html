@@ -11,7 +11,6 @@
             --main-bg: #eef2f7; 
             --text-dark: #333;
         }
-
         body { 
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
             background: linear-gradient(180deg, #d1d9e6 0%, #eef2f7 100%);
@@ -21,7 +20,6 @@
             line-height: 1.6;
             scroll-behavior: smooth;
         }
-
         header {
             background: #ffffff;
             color: var(--primary-blue);
@@ -32,12 +30,11 @@
             border-bottom: 4px solid var(--accent-orange);
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-
         .header-logo { height: 60px; width: auto; }
         .header-title { text-align: center; }
         .header-title h1 { margin: 0; font-size: 1.8rem; color: var(--primary-blue); text-transform: uppercase; }
         .header-title p { margin: 5px 0 0; font-size: 0.9rem; color: #d35400; font-weight: 700; }
-
+        
         nav {
             background: var(--primary-blue);
             padding: 12px 0;
@@ -46,32 +43,29 @@
             top: 0;
             z-index: 1000;
         }
-
-        nav a {
+        nav a, .nav-btn {
             color: white;
             margin: 0 15px;
             text-decoration: none;
             font-weight: 600;
             font-size: 0.95rem;
             transition: color 0.3s;
+            background: none; border: none; cursor: pointer;
         }
-
-        nav a:hover { color: var(--accent-orange); }
-
+        nav a:hover, .nav-btn:hover { color: var(--accent-orange); }
+        
         .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
-
         .title-services { color: var(--primary-blue); text-align: center; margin-bottom: 30px; font-size: 2.2rem; text-transform: uppercase; }
         .title-shop { color: #e67e22; text-align: center; margin-bottom: 30px; font-size: 2.2rem; text-transform: uppercase; }
         .title-about { color: var(--primary-blue); margin-bottom: 20px; border-left: 5px solid var(--primary-blue); padding-left: 15px; }
         .title-contact { color: #c0392b; text-align: center; margin-bottom: 30px; font-size: 2.2rem; text-transform: uppercase; }
-
+        
         .grid-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 25px;
             margin-bottom: 60px;
         }
-
         .service-card {
             background: white;
             padding: 25px;
@@ -80,12 +74,9 @@
             transition: transform 0.3s ease;
             border-top: 5px solid var(--primary-blue);
         }
-
         .service-card h2 { font-size: 1.3rem; margin-top: 0; color: var(--primary-blue); border-bottom: 1px solid #eee; padding-bottom: 10px; }
-
         .link-list { list-style: none; padding: 0; }
         .link-list li { margin: 12px 0; }
-
         .form-link {
             text-decoration: none;
             background: #f8f9fa;
@@ -96,10 +87,9 @@
             border: 1px solid #e0e0e0;
             transition: 0.3s;
             font-weight: 500;
+            cursor: pointer;
         }
-
         .form-link:hover { background: var(--primary-blue); color: white; }
-
         .product-item { display: flex; align-items: center; margin-bottom: 15px; background: #fff; padding: 10px; border-radius: 10px; }
         .btn-buy { background: var(--accent-orange); color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; transition: 0.3s; }
         
@@ -117,6 +107,18 @@
             z-index: 2000;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
+        
+        /* Modal Styling for Auth */
+        .modal {
+            display: none; position: fixed; z-index: 3000; left: 0; top: 0;
+            width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px);
+            justify-content: center; align-items: center;
+        }
+        .modal-content {
+            background: white; padding: 30px; border-radius: 15px; width: 90%; max-width: 400px; text-align: center;
+        }
+        .auth-input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
+        .hidden { display: none; }
 
         .section-divider { height: 1px; background: rgba(0,0,0,0.1); margin: 40px 0; border: none; }
         .about-section { background: white; padding: 40px; border-radius: 15px; margin-bottom: 40px; }
@@ -129,7 +131,6 @@
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.15);
         }
-
         @media (max-width: 768px) {
             .contact-grid { grid-template-columns: 1fr; }
             #cart-box { width: 90%; right: 5%; left: 5%; }
@@ -137,6 +138,36 @@
     </style>
 </head>
 <body>
+
+<div id="loginModal" class="modal">
+    <div class="modal-content">
+        <h2 style="color:var(--primary-blue)">Login</h2>
+        <input type="email" id="loginEmail" class="auth-input" placeholder="Email Address">
+        <input type="password" id="loginPass" class="auth-input" placeholder="Password">
+        <button class="btn-buy" style="width:100%" onclick="handleLogin()">Login</button>
+        <p><small>Account nahi hai? <a href="javascript:void(0)" onclick="closeModal('loginModal'); openModal('signupModal')">Sign Up karein</a></small></p>
+        <button onclick="closeModal('loginModal')" style="background:none; border:none; color:red; cursor:pointer; margin-top:10px;">Close</button>
+    </div>
+</div>
+
+<div id="signupModal" class="modal">
+    <div class="modal-content">
+        <h2 id="modalTitle">Create Account</h2>
+        <div id="step-register">
+            <input type="email" id="signupEmail" class="auth-input" placeholder="Email Address">
+            <input type="password" id="signupPass" class="auth-input" placeholder="Create Password">
+            <input type="tel" id="signupMobile" class="auth-input" placeholder="10 Digit Mobile No.">
+            <button class="btn-buy" style="width:100%" onclick="handleSignup()">Register & Get OTP</button>
+        </div>
+        <div id="step-otp" class="hidden">
+            <p>Mobile par bheja gaya OTP dalein</p>
+            <input type="text" id="otpCode" class="auth-input" placeholder="6-digit OTP">
+            <button class="btn-buy" style="width:100%" onclick="verifyOTP()">Verify Mobile</button>
+        </div>
+        <div id="recaptcha-container"></div>
+        <button onclick="closeModal('signupModal')" style="background:none; border:none; color:red; cursor:pointer; margin-top:10px;">Close</button>
+    </div>
+</div>
 
 <header>
     <img src="https://digitalseva.csc.gov.in/assets1/images/csc-logo.svg" alt="CSC Logo" class="header-logo">
@@ -152,6 +183,7 @@
     <a href="#shop">Electronics Shop</a>
     <a href="#about">About Us</a>
     <a href="#contact">Contact</a>
+    <span id="authLinks"></span>
 </nav>
 
 <div class="container">
@@ -160,30 +192,30 @@
         <div class="service-card">
             <h2>🪪 Identity Cards</h2>
             <ul class="link-list">
-                <li><a href="#" class="form-link">New PAN Card Application</a></li>
-                <li><a href="#" class="form-link">Ration Card New/Correction</a></li>
-                <li><a href="#" class="form-link">Voter ID Registration</a></li>
-                <li><a href="#" class="form-link">Aadhaar Services</a></li>
+                <li><a href="javascript:void(0)" onclick="restrictedAction()" class="form-link">New PAN Card Application</a></li>
+                <li><a href="javascript:void(0)" onclick="restrictedAction()" class="form-link">Ration Card New/Correction</a></li>
+                <li><a href="javascript:void(0)" onclick="restrictedAction()" class="form-link">Voter ID Registration</a></li>
+                <li><a href="javascript:void(0)" onclick="restrictedAction()" class="form-link">Aadhaar Services</a></li>
             </ul>
         </div>
 
         <div class="service-card" style="border-top-color: #28a745;">
             <h2>✈️ Travel & Transport</h2>
             <ul class="link-list">
-                <li><a href="#" class="form-link">Train Ticket (IRCTC)</a></li>
-                <li><a href="#" class="form-link">Flight Bookings</a></li>
-                <li><a href="#" class="form-link">Driving License Apply</a></li>
-                <li><a href="#" class="form-link">Vehicle Insurance</a></li>
+                <li><a href="javascript:void(0)" onclick="restrictedAction()" class="form-link">Train Ticket (IRCTC)</a></li>
+                <li><a href="javascript:void(0)" onclick="restrictedAction()" class="form-link">Flight Bookings</a></li>
+                <li><a href="javascript:void(0)" onclick="restrictedAction()" class="form-link">Driving License Apply</a></li>
+                <li><a href="javascript:void(0)" onclick="restrictedAction()" class="form-link">Vehicle Insurance</a></li>
             </ul>
         </div>
 
         <div class="service-card" style="border-top-color: #e83e8c;">
             <h2>🎓 Welfare & Pension</h2>
             <ul class="link-list">
-                <li><a href="#" class="form-link">UP Scholarship Form</a></li>
-                <li><a href="#" class="form-link">Old Age Pension</a></li>
-                <li><a href="#" class="form-link">Widow / Divyang Pension</a></li>
-                <li><a href="#" class="form-link">Caste/Income/Domicile</a></li>
+                <li><a href="javascript:void(0)" onclick="restrictedAction()" class="form-link">UP Scholarship Form</a></li>
+                <li><a href="javascript:void(0)" onclick="restrictedAction()" class="form-link">Old Age Pension</a></li>
+                <li><a href="javascript:void(0)" onclick="restrictedAction()" class="form-link">Widow / Divyang Pension</a></li>
+                <li><a href="javascript:void(0)" onclick="restrictedAction()" class="form-link">Caste/Income/Domicile</a></li>
             </ul>
         </div>
     </div>
@@ -197,7 +229,7 @@
                 <img src="https://cdn-icons-png.flaticon.com/128/644/644458.png" width="50" style="margin-right:15px;">
                 <div><strong>Smart Phone X1</strong><br><span>₹15,000</span></div>
             </div>
-            <button onclick="addToCart('Smart Phone X1', 15000)" class="btn-buy" style="width:100%">Add to Cart</button>
+            <button onclick="restrictedAction('Smart Phone X1', 15000)" class="btn-buy" style="width:100%">Add to Cart</button>
         </div>
 
         <div class="service-card" style="border-top-color: var(--accent-orange);">
@@ -205,7 +237,7 @@
                 <img src="https://cdn-icons-png.flaticon.com/128/27/27705.png" width="50" style="margin-right:15px;">
                 <div><strong>Pro Earbuds</strong><br><span>₹2,500</span></div>
             </div>
-            <button onclick="addToCart('Pro Earbuds', 2500)" class="btn-buy" style="width:100%">Add to Cart</button>
+            <button onclick="restrictedAction('Pro Earbuds', 2500)" class="btn-buy" style="width:100%">Add to Cart</button>
         </div>
     </div>
 
@@ -249,9 +281,82 @@
     <span style="opacity: 0.7;">Created by Irshad Ali | Unnao, Uttar Pradesh</span>
 </footer>
 
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+
 <script>
+    // Firebase Config (Real Keys)
+    const firebaseConfig = {
+        apiKey: "AIzaSyCaRi9Q5-2l6n2_IDz1gl6Sq99OOM4QgSY",
+        authDomain: "zs-computers.firebaseapp.com",
+        projectId: "zs-computers",
+        storageBucket: "zs-computers.firebasestorage.app",
+        messagingSenderId: "366595016411",
+        appId: "1:366595016411:web:292a0165df0a06e0fceefe"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    let currentUser = null;
     let cart = [];
 
+    // Login Status Monitor
+    auth.onAuthStateChanged((user) => {
+        const authLinks = document.getElementById('authLinks');
+        if (user) {
+            currentUser = user;
+            authLinks.innerHTML = `<span style="color:white; margin:0 10px;">Hi, ${user.email.split('@')[0]}</span> <button class="nav-btn" onclick="auth.signOut()">Logout</button>`;
+        } else {
+            currentUser = null;
+            authLinks.innerHTML = `<button class="nav-btn" onclick="openModal('loginModal')">Login</button> <button class="nav-btn" onclick="openModal('signupModal')">Sign Up</button>`;
+        }
+    });
+
+    // restricted action to force login
+    window.restrictedAction = (name, price) => {
+        if (!currentUser) {
+            alert("Aage badhne ke liye Login/Signup zaroori hai!");
+            openModal('loginModal');
+        } else {
+            if (name) addToCart(name, price);
+            else alert("Service selected! Ham aapko call karenge.");
+        }
+    };
+
+    window.openModal = (id) => document.getElementById(id).style.display = 'flex';
+    window.closeModal = (id) => document.getElementById(id).style.display = 'none';
+
+    // Firebase Auth Logic
+    window.handleSignup = async () => {
+        const email = document.getElementById('signupEmail').value;
+        const pass = document.getElementById('signupPass').value;
+        const mobile = "+91" + document.getElementById('signupMobile').value;
+        try {
+            await auth.createUserWithEmailAndPassword(email, pass);
+            const verifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', { 'size': 'invisible' });
+            const confirmation = await auth.signInWithPhoneNumber(mobile, verifier);
+            window.confirmationResult = confirmation;
+            document.getElementById('step-register').classList.add('hidden');
+            document.getElementById('step-otp').classList.remove('hidden');
+            alert("OTP bhej diya gaya!");
+        } catch (err) { alert(err.message); }
+    };
+
+    window.verifyOTP = async () => {
+        try {
+            await window.confirmationResult.confirm(document.getElementById('otpCode').value);
+            alert("Verified Successfully!"); closeModal('signupModal');
+        } catch (err) { alert("Invalid OTP!"); }
+    };
+
+    window.handleLogin = async () => {
+        const email = document.getElementById('loginEmail').value;
+        const pass = document.getElementById('loginPass').value;
+        try { await auth.signInWithEmailAndPassword(email, pass); closeModal('loginModal'); }
+        catch (err) { alert(err.message); }
+    };
+
+    // Original Cart System
     function addToCart(itemName, itemPrice) {
         cart.push({ name: itemName, price: itemPrice });
         renderCart();
@@ -262,43 +367,24 @@
         const cartBox = document.getElementById('cart-box');
         const list = document.getElementById('cart-items-list');
         const totalSpan = document.getElementById('total-price');
-        
         if (cart.length > 0) {
             cartBox.style.display = 'block';
-            list.innerHTML = cart.map((item, index) => 
-                `<div style="border-bottom:1px solid #ddd; padding:5px 0;">${item.name} - ₹${item.price}</div>`
-            ).join('');
-            
+            list.innerHTML = cart.map((item) => `<div style="border-bottom:1px solid #ddd; padding:5px 0;">${item.name} - ₹${item.price}</div>`).join('');
             const total = cart.reduce((sum, item) => sum + item.price, 0);
             totalSpan.innerText = total.toLocaleString('en-IN');
-        } else {
-            cartBox.style.display = 'none';
-        }
+        } else { cartBox.style.display = 'none'; }
     }
 
-    function clearCart() {
-        cart = [];
-        renderCart();
-    }
+    function clearCart() { cart = []; renderCart(); }
 
     function checkoutViaWhatsApp() {
         if (cart.length === 0) return;
-
         let message = "Hello Z.S Computers! I want to order:%0A%0A";
         let total = 0;
-        
-        cart.forEach((item, index) => {
-            message += `${index + 1}. ${item.name} - ₹${item.price}%0A`;
-            total += item.price;
-        });
-
-        message += `%0ATotal Amount: ₹${total}%0A%0APlease confirm my order for Same-Day Delivery.`;
-        
-        const whatsappUrl = `https://wa.me/916388944545?text=${message}`;
-        window.open(whatsappUrl, '_blank');
+        cart.forEach((item, index) => { message += `${index + 1}. ${item.name} - ₹${item.price}%0A`; total += item.price; });
+        message += `%0ATotal Amount: ₹${total}%0A%0APlease confirm my order.`;
+        window.open(`https://wa.me/916388944545?text=${message}`, '_blank');
     }
 </script>
-
 </body>
 </html>
-
