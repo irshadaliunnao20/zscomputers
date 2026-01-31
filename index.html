@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Z.S Computers | Authorised CSC Prasad Kheda</title>
+    <title>Z.S Computers | CSC Authorised Centre</title>
     <style>
         :root { --primary-blue: #002b5b; --accent-orange: #ff9900; --text-dark: #333; }
-        body { font-family: 'Segoe UI', sans-serif; background: #eef2f7; margin: 0; color: var(--text-dark); line-height: 1.6; scroll-behavior: smooth; }
+        body { font-family: 'Segoe UI', sans-serif; background: #eef2f7; margin: 0; color: var(--text-dark); line-height: 1.6; }
         header { background: #fff; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid var(--accent-orange); box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
         .header-logo { height: 60px; }
         nav { background: var(--primary-blue); padding: 12px 0; text-align: center; position: sticky; top: 0; z-index: 1000; }
         nav a, .nav-btn { color: white; margin: 0 15px; text-decoration: none; font-weight: 600; cursor: pointer; background: none; border: none; }
-        .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
-        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-bottom: 50px; }
+        .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; text-align: center; }
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-bottom: 50px; }
         .service-card { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); border-top: 5px solid var(--primary-blue); text-align: left; }
         .btn-buy { background: var(--accent-orange); color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 10px; }
         .modal { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); justify-content: center; align-items: center; }
@@ -27,7 +27,7 @@
     <img src="https://digitalseva.csc.gov.in/assets1/images/csc-logo.svg" class="header-logo">
     <div style="text-align:center;">
         <h1 style="margin:0; color:var(--primary-blue); font-size: 1.8rem;">Z.S COMPUTERS</h1>
-        <p style="margin:0; color:#d35400; font-weight:bold;">CSC Authorised | Prasad Kheda, Unnao</p>
+        <p style="margin:0; color:#d35400; font-weight:bold;">CSC Prasad Kheda, Unnao</p>
     </div>
     <img src="https://digitalseva.csc.gov.in/assets1/webpimage/digital-india.webp" class="header-logo">
 </header>
@@ -42,25 +42,23 @@
 </nav>
 
 <div class="container">
-    <h2 id="services" style="color:var(--primary-blue); text-transform:uppercase; text-align:center;">Our Digital Services</h2>
+    <h2 id="services">Our Digital Services</h2>
     <div class="grid-container">
         <div class="service-card">
-            <h2>🪪 Identity Cards</h2>
-            <p>PAN, Aadhaar, Voter ID Registration.</p>
-            <button class="btn-buy" onclick="restrictedAction()">Apply Now</button>
+            <h3>🪪 Identity Cards</h3>
+            <button class="btn-buy" onclick="restrictedAction()">Apply (PAN/Aadhaar)</button>
         </div>
         <div class="service-card" style="border-top-color: #28a745;">
-            <h2>✈️ Travel & Transport</h2>
-            <p>IRCTC, Flights, DL Services.</p>
-            <button class="btn-buy" onclick="restrictedAction()">Book Now</button>
+            <h3>✈️ Travel & Transport</h3>
+            <button class="btn-buy" onclick="restrictedAction()">Book IRCTC/Flights</button>
         </div>
     </div>
 
-    <h2 id="shop" style="color:#e67e22; text-transform:uppercase; text-align:center; margin-top:40px;">Electronics Store</h2>
+    <h2 id="shop" style="color:#e67e22; margin-top:40px;">Electronics Store</h2>
     <div class="grid-container">
         <div class="service-card" style="border-top-color: var(--accent-orange);">
             <p><strong>Smart Phone X1</strong> - ₹15,000</p>
-            <button class="btn-buy" onclick="restrictedAction('Smart Phone X1', 15000)">Add to Cart</button>
+            <button class="btn-buy" onclick="restrictedAction()">Add to Cart</button>
         </div>
     </div>
 </div>
@@ -86,18 +84,18 @@
         </div>
         <div id="step-otp" class="hidden">
             <input type="text" id="otpCode" class="auth-input" placeholder="Enter OTP">
-            <button class="btn-buy" onclick="verifyOTP()">Verify Mobile</button>
+            <button class="btn-buy" onclick="verifyOTP()">Verify OTP</button>
         </div>
         <div id="recaptcha-container"></div>
     </div>
 </div>
 
-<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 
 <script>
-    // FIX: Using Real API Key from Firebase Console
-    const firebaseConfig = {
+    // Real Keys from Image 4
+    var firebaseConfig = {
         apiKey: "AIzaSyCaRi9Q5-2l6n2_IDz1gl6Sq99OOM4QgSY",
         authDomain: "zs-computers.firebaseapp.com",
         projectId: "zs-computers",
@@ -106,55 +104,57 @@
         appId: "1:366595016411:web:292a0165df0a06e0fceefe"
     };
 
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    let currentUser = null;
+    // Initialize Firebase
+    if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+    }
+    var auth = firebase.auth();
+    var currentUser = null;
 
-    auth.onAuthStateChanged((user) => {
-        const authLinks = document.getElementById('authLinks');
+    auth.onAuthStateChanged(function(user) {
+        var authLinks = document.getElementById('authLinks');
         if (user) {
             currentUser = user;
-            authLinks.innerHTML = `<button class="nav-btn" onclick="auth.signOut()">Logout</button>`;
+            authLinks.innerHTML = '<button class="nav-btn" onclick="auth.signOut()">Logout</button>';
         } else {
             currentUser = null;
-            authLinks.innerHTML = `<button class="nav-btn" onclick="openModal('loginModal')">Login</button> <button class="nav-btn" onclick="openModal('signupModal')">Sign Up</button>`;
+            authLinks.innerHTML = '<button class="nav-btn" onclick="openModal(\'loginModal\')">Login</button> <button class="nav-btn" onclick="openModal(\'signupModal\')">Sign Up</button>';
         }
     });
 
-    window.openModal = (id) => document.getElementById(id).style.display = 'flex';
-    window.closeModal = (id) => document.getElementById(id).style.display = 'none';
+    window.openModal = function(id) { document.getElementById(id).style.display = 'flex'; };
+    window.closeModal = function(id) { document.getElementById(id).style.display = 'none'; };
 
-    window.restrictedAction = () => {
+    window.restrictedAction = function() {
         if (!currentUser) { alert("Pehle login karein!"); openModal('loginModal'); }
-        else { alert("Success! We will contact you soon."); }
+        else { alert("Success! Hum aapko jald contact karenge."); }
     };
 
-    window.handleSignup = async () => {
-        const email = document.getElementById('signupEmail').value;
-        const pass = document.getElementById('signupPass').value;
-        const mobile = "+91" + document.getElementById('signupMobile').value;
-        try {
-            await auth.createUserWithEmailAndPassword(email, pass);
-            const verifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', { 'size': 'invisible' });
-            const confirmation = await auth.signInWithPhoneNumber(mobile, verifier);
+    window.handleSignup = function() {
+        var email = document.getElementById('signupEmail').value;
+        var pass = document.getElementById('signupPass').value;
+        var mobile = "+91" + document.getElementById('signupMobile').value;
+
+        auth.createUserWithEmailAndPassword(email, pass).then(function() {
+            var verifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', { 'size': 'invisible' });
+            return auth.signInWithPhoneNumber(mobile, verifier);
+        }).then(function(confirmation) {
             window.confirmationResult = confirmation;
             document.getElementById('step-reg').classList.add('hidden');
             document.getElementById('step-otp').classList.remove('hidden');
-        } catch (err) { alert(err.message); }
+        }).catch(function(err) { alert(err.message); });
     };
 
-    window.verifyOTP = async () => {
-        try {
-            await window.confirmationResult.confirm(document.getElementById('otpCode').value);
+    window.verifyOTP = function() {
+        window.confirmationResult.confirm(document.getElementById('otpCode').value).then(function() {
             alert("Account Verified!"); closeModal('signupModal');
-        } catch (err) { alert("Invalid OTP"); }
+        }).catch(function() { alert("Invalid OTP"); });
     };
 
-    window.handleLogin = async () => {
-        const email = document.getElementById('loginEmail').value;
-        const pass = document.getElementById('loginPass').value;
-        try { await auth.signInWithEmailAndPassword(email, pass); closeModal('loginModal'); }
-        catch (err) { alert(err.message); }
+    window.handleLogin = function() {
+        auth.signInWithEmailAndPassword(document.getElementById('loginEmail').value, document.getElementById('loginPass').value)
+        .then(function() { closeModal('loginModal'); })
+        .catch(function(err) { alert(err.message); });
     };
 </script>
 </body>
