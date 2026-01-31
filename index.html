@@ -161,6 +161,10 @@
     <a href="#shop">Electronics Shop</a>
     <a href="#about">About Us</a>
     <a href="#contact">Contact</a>
+    <span id="authLinks">
+        <button onclick="openModal('loginModal')" class="nav-btn">Login</button>
+        <button onclick="openModal('signupModal')" class="nav-btn">Signup</button>
+    </span>
 </nav>
 
 <div class="container">
@@ -325,4 +329,14 @@
     }
 </script>
 </body>
+    <div id="loginModal" class="modal">
+    <div class="modal-content">
+        <h2>Login</h2>
+        <input type="email" id="loginEmail" placeholder="Email Address">
+        <input type="password" id="loginPass" placeholder="Password">
+        <button onclick="handleLogin()">Login</button>
+        <button onclick="closeModal('loginModal')">Close</button>
+    </div>
+</div>
 </html>
+
