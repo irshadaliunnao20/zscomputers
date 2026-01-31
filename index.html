@@ -5,82 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Z.S Computers | Authorised CSC Prasad Kheda</title>
     <style>
-        :root {
-            --primary-blue: #002b5b;
-            --accent-orange: #ff9900;
-            --main-bg: #eef2f7; 
-            --text-dark: #333;
-        }
-        body { 
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
-            background: linear-gradient(180deg, #d1d9e6 0%, #eef2f7 100%);
-            background-attachment: fixed;
-            margin: 0; color: var(--text-dark); line-height: 1.6; scroll-behavior: smooth;
-        }
-        header {
-            background: #ffffff; color: var(--primary-blue); padding: 15px 5%;
-            display: flex; align-items: center; justify-content: space-between;
-            border-bottom: 4px solid var(--accent-orange); box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        .header-logo { height: 60px; width: auto; }
+        :root { --primary-blue: #002b5b; --accent-orange: #ff9900; --text-dark: #333; }
+        body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(180deg, #d1d9e6 0%, #eef2f7 100%); background-attachment: fixed; margin: 0; color: var(--text-dark); line-height: 1.6; scroll-behavior: smooth; }
+        header { background: #fff; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid var(--accent-orange); box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .header-logo { height: 60px; }
         .header-title { text-align: center; }
         .header-title h1 { margin: 0; font-size: 1.8rem; color: var(--primary-blue); text-transform: uppercase; }
         .header-title p { margin: 5px 0 0; font-size: 0.9rem; color: #d35400; font-weight: 700; }
-        
-        nav {
-            background: var(--primary-blue); padding: 12px 0; text-align: center;
-            position: sticky; top: 0; z-index: 1000;
-        }
-        nav a, .nav-btn {
-            color: white; margin: 0 15px; text-decoration: none;
-            font-weight: 600; font-size: 0.95rem; background: none; border: none; cursor: pointer;
-        }
-        nav a:hover, .nav-btn:hover { color: var(--accent-orange); }
-        
+        nav { background: var(--primary-blue); padding: 12px 0; text-align: center; position: sticky; top: 0; z-index: 1000; }
+        nav a, .nav-btn { color: white; margin: 0 15px; text-decoration: none; font-weight: 600; font-size: 0.95rem; background: none; border: none; cursor: pointer; }
         .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
-        .title-services, .title-shop, .title-contact { text-align: center; margin-bottom: 30px; font-size: 2.2rem; text-transform: uppercase; }
-        .title-services { color: var(--primary-blue); }
-        .title-shop { color: #e67e22; }
-        .title-contact { color: #c0392b; }
-
-        .grid-container {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px; margin-bottom: 60px;
-        }
-        .service-card {
-            background: white; padding: 25px; border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1); border-top: 5px solid var(--primary-blue);
-        }
-        .service-card h2 { font-size: 1.3rem; margin-top: 0; color: var(--primary-blue); border-bottom: 1px solid #eee; padding-bottom: 10px; }
-        .link-list { list-style: none; padding: 0; }
-        .link-list li { margin: 12px 0; }
-        .form-link {
-            text-decoration: none; background: #f8f9fa; color: var(--primary-blue);
-            padding: 10px 15px; border-radius: 8px; display: block; border: 1px solid #e0e0e0;
-            transition: 0.3s; font-weight: 500; cursor: pointer;
-        }
-        .form-link:hover { background: var(--primary-blue); color: white; }
-        
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-bottom: 60px; }
+        .service-card { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); border-top: 5px solid var(--primary-blue); }
         .btn-buy { background: var(--accent-orange); color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; width: 100%; }
-        
-        .modal {
-            display: none; position: fixed; z-index: 3000; left: 0; top: 0;
-            width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px);
-            justify-content: center; align-items: center;
-        }
-        .modal-content {
-            background: white; padding: 30px; border-radius: 15px; width: 90%; max-width: 400px; text-align: center;
-        }
+        .modal { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); justify-content: center; align-items: center; }
+        .modal-content { background: white; padding: 30px; border-radius: 15px; width: 90%; max-width: 400px; text-align: center; }
         .auth-input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
-        
-        #cart-box {
-            display: none; background: #fff9e6; border: 2px solid var(--accent-orange);
-            padding: 20px; border-radius: 15px; position: fixed; bottom: 20px; right: 20px;
-            width: 300px; z-index: 2000; box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-        .about-section { background: white; padding: 40px; border-radius: 15px; margin-bottom: 40px; }
-        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; background: #fff; padding: 40px; border-radius: 15px; }
-        @media (max-width: 768px) { .contact-grid { grid-template-columns: 1fr; } }
+        #cart-box { display: none; background: #fff9e6; border: 2px solid var(--accent-orange); padding: 20px; border-radius: 15px; position: fixed; bottom: 20px; right: 20px; width: 300px; z-index: 2000; }
     </style>
 </head>
 <body>
@@ -118,144 +59,15 @@
 <nav>
     <a href="#services">Digital Services</a>
     <a href="#shop">Electronics Shop</a>
-    <a href="#about">About Us</a>
-    <a href="#contact">Contact</a>
-    <span id="authLinks"></span>
+    <span id="authLinks">
+        <button class="nav-btn" onclick="openModal('loginModal')">Login</button>
+        <button class="nav-btn" onclick="openModal('signupModal')">Sign Up</button>
+    </span>
 </nav>
 
 <div class="container">
-    <h2 class="title-services" id="services">Our Digital Services</h2>
+    <h2 id="services" style="text-align:center; color:var(--primary-blue)">OUR DIGITAL SERVICES</h2>
     <div class="grid-container">
         <div class="service-card">
             <h2>🪪 Identity Cards</h2>
-            <ul class="link-list">
-                <li><a onclick="restrictedAction()" class="form-link">New PAN Card Application</a></li>
-                <li><a onclick="restrictedAction()" class="form-link">Ration Card New/Correction</a></li>
-                <li><a onclick="restrictedAction()" class="form-link">Voter ID Registration</a></li>
-                <li><a onclick="restrictedAction()" class="form-link">Aadhaar Services</a></li>
-            </ul>
-        </div>
-        <div class="service-card" style="border-top-color: #28a745;">
-            <h2>✈️ Travel & Transport</h2>
-            <ul class="link-list">
-                <li><a onclick="restrictedAction()" class="form-link">Train Ticket (IRCTC)</a></li>
-                <li><a onclick="restrictedAction()" class="form-link">Flight Bookings</a></li>
-                <li><a onclick="restrictedAction()" class="form-link">Driving License Apply</a></li>
-            </ul>
-        </div>
-        <div class="service-card" style="border-top-color: #e83e8c;">
-            <h2>🎓 Welfare & Pension</h2>
-            <ul class="link-list">
-                <li><a onclick="restrictedAction()" class="form-link">UP Scholarship Form</a></li>
-                <li><a onclick="restrictedAction()" class="form-link">Old Age Pension</a></li>
-                <li><a onclick="restrictedAction()" class="form-link">Caste/Income/Domicile</a></li>
-            </ul>
-        </div>
-    </div>
-
-    <hr>
-    <h2 class="title-shop" id="shop">Electronics Store</h2>
-    <div class="grid-container">
-        <div class="service-card" style="border-top-color: var(--accent-orange);">
-            <p><strong>Smart Phone X1</strong> - ₹15,000</p>
-            <button onclick="restrictedAction('Smart Phone X1', 15000)" class="btn-buy">Add to Cart</button>
-        </div>
-    </div>
-
-    <div id="cart-box">
-        <h3>🛒 Your Cart</h3>
-        <div id="cart-items-list"></div>
-        <p><strong>Total: ₹<span id="total-price">0</span></strong></p>
-        <button onclick="checkoutViaWhatsApp()" class="btn-buy" style="background: #25D366;">Order via WhatsApp</button>
-    </div>
-
-    <div class="about-section" id="about">
-        <h2 style="border-left: 5px solid var(--primary-blue); padding-left:15px;">About Z.S Computers</h2>
-        <p>Serving <strong>Prasad Kheda, Unnao</strong> for over 4 years. We provide 100% secure government form filling and gadgets.</p>
-    </div>
-
-    <h2 class="title-contact" id="contact">Contact & Express Delivery</h2>
-    <div class="contact-grid">
-        <div>
-            <h3>Visit Our Office</h3>
-            <p>📍 Prasad Kheda, Unnao, UP</p>
-            <p>📞 +91 63889 44545</p>
-            <a href="https://wa.me/916388944545" style="background:#25D366; color:white; padding:10px; text-decoration:none; border-radius:5px;">Chat on WhatsApp</a>
-        </div>
-        <div>
-            <h3>Express Order Form</h3>
-            <form onsubmit="event.preventDefault(); alert('Request Received!');">
-                <input type="text" placeholder="Your Name" class="auth-input" required>
-                <textarea placeholder="Service Required" class="auth-input" style="height:80px" required></textarea>
-                <button type="submit" class="btn-buy">Submit Request</button>
-            </form>
-        </div>
-    </div>
-</div>
-
-<footer style="text-align:center; padding:30px; background: #001a38; color:#fff;">
-    &copy; 2026 Z.S Computers. All Rights Reserved. <br>
-    <span style="opacity: 0.7;">Created by Irshad Ali | Prasad Kheda, Unnao</span>
-</footer>
-
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-
-<script>
-    var firebaseConfig = {
-        apiKey: "AIzaSyCaRi9Q5-2l6n2_IdZ1gl6Sq99OOM4QgSY",
-        authDomain: "zs-computers.firebaseapp.com",
-        projectId: "zs-computers",
-        storageBucket: "zs-computers.firebasestorage.app",
-        messagingSenderId: "366595016411",
-        appId: "1:366595016411:web:292a0165df0a06e0fceefe"
-    };
-
-    firebase.initializeApp(firebaseConfig);
-    var auth = firebase.auth();
-    var currentUser = null;
-    var cart = [];
-
-    auth.onAuthStateChanged(function(user) {
-        var links = document.getElementById('authLinks');
-        if (user) {
-            currentUser = user;
-            links.innerHTML = '<span style="color:white; margin-right:10px;">Hi, ' + user.email.split('@')[0] + '</span><button class="nav-btn" onclick="auth.signOut()">Logout</button>';
-        } else {
-            currentUser = null;
-            links.innerHTML = '<button class="nav-btn" onclick="openModal(\'loginModal\')">Login</button> <button class="nav-btn" onclick="openModal(\'signupModal\')">Sign Up</button>';
-        }
-    });
-
-    window.openModal = function(id) { document.getElementById(id).style.display = 'flex'; };
-    window.closeModal = function(id) { document.getElementById(id).style.display = 'none'; };
-
-    window.restrictedAction = function(name, price) {
-        if (!currentUser) { alert("Pehle Login karein!"); openModal('loginModal'); }
-        else if (name) {
-            cart.push({name: name, price: price});
-            document.getElementById('cart-box').style.display = 'block';
-            document.getElementById('cart-items-list').innerHTML = cart.map(function(i){ return '<div>'+i.name+' - ₹'+i.price+'</div>'; }).join('');
-            document.getElementById('total-price').innerText = cart.reduce(function(s, i){ return s + i.price; }, 0);
-        }
-    };
-
-    window.handleSignup = function() {
-        auth.createUserWithEmailAndPassword(document.getElementById('signupEmail').value, document.getElementById('signupPass').value)
-            .then(function() { alert("Signup Success!"); closeModal('signupModal'); })
-            .catch(function(err) { alert(err.message); });
-    };
-
-    window.handleLogin = function() {
-        auth.signInWithEmailAndPassword(document.getElementById('loginEmail').value, document.getElementById('loginPass').value)
-            .then(function() { closeModal('loginModal'); })
-            .catch(function(err) { alert(err.message); });
-    };
-
-    window.checkoutViaWhatsApp = function() {
-        var msg = "Order from ZS Computers:%0A" + cart.map(function(i){ return i.name + " (₹" + i.price + ")"; }).join("%0A");
-        window.open("https://wa.me/916388944545?text=" + msg);
-    };
-</script>
-</body>
-</html>
+            <button class="btn-buy" onclick="restrictedAction()">PAN Card Application</button>
